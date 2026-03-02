@@ -1,11 +1,20 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Profile from "./Profile"
+import Base from "./Base"
+import Login from "./Login"
 
 function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Base />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
