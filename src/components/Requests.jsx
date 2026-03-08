@@ -2,15 +2,32 @@ import axios from "axios"
 import { BASE_URL } from "../utils/constants"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../utils/requestSlice";
+import { addRequest, removeRequest } from "../utils/requestSlice";
 
 
 const Requests = () => {
     const request = useSelector((store) => store.request);
     const dispatch = useDispatch();
     const getRequest = async () => {
-        const res = await axios.get(BASE_URL + "/user/requests/received", { withCredentials: true });
-        dispatch(addRequest(res?.data?.data));
+        try{
+
+            const res = await axios.get(BASE_URL + "/user/requests/received", { withCredentials: true });
+            dispatch(addRequest(res?.data?.data));
+        }
+        catch(err){
+            console.error(err?.response?.data);
+        }
+    }
+
+    const reviewRequest = async (status, id) => {
+        try{
+
+            await axios.post(BASE_URL+"/request/review/"+status+"/"+id, {}, {withCredentials: true})
+            dispatch(removeRequest(id));
+        }
+        catch(err){
+            console.error(err?.response?.data);
+        }
     }
 
     useEffect(() => {
@@ -39,8 +56,8 @@ const Requests = () => {
                             <p className="list-col-wrap text-xs">
                                 {about}
                             </p>
-                            <button className="btn btn-success">Accept</button>
-                            <button className="btn btn-error">Reject</button>
+                            <button className="btn btn-success" onClick={() => reviewRequest("accepted", request._id)}>Accept</button>
+                            <button className="btn btn-error"onClick={() => reviewRequest("rejected", request._id)}>Reject</button>
 
                         </li>
 

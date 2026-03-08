@@ -8,9 +8,15 @@ const Connections = () => {
     const connections = useSelector((store) => store.connection);
     const dispatch = useDispatch();
     const getConnections = async () => {
-        const res = await axios.get(BASE_URL + "/user/connections", { withCredentials: true });
+        try{
 
-        dispatch(addConnections(res?.data))
+            const res = await axios.get(BASE_URL + "/user/connections", { withCredentials: true });
+    
+            dispatch(addConnections(res?.data))
+        }
+        catch(err){
+            console.error(err?.response?.data);
+        }
     }
 
     useEffect(() => {
