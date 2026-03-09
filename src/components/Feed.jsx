@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 
 
 const Feed = () => {
+  const idx = useSelector((store) => store.index);
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
   const userFeed = async () => {
@@ -15,14 +16,26 @@ const Feed = () => {
       dispatch(addFeed(res.data.data));
     }
     catch(err){
-      console.log(err?.response?.data);
+      console.error(err?.response?.data);
     }
 
   }
+
   useEffect(() => {
-    if(feed) return;
+    console.log(feed);
+    if(!feed || feed.length === 0){
     userFeed();
-  })
+  }
+    else{
+      return;
+    }
+    
+  }, [idx])
+
+  if(!feed) return;
+
+  if(feed.length <= 0) return <div className="text-center font-bold">No new user found</div>
+
   return (
     feed && <div className='flex justify-center my-10'>
       <Card user={feed[0]}/>

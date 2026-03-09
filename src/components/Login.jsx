@@ -6,9 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
 
 const Login = () => {
-    const [email, setEmail] = useState("prince@example.com");
-    const [password, setPassword] = useState("Prince@123");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoginForm, setIsLoginForm] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleLogin = async () => {
@@ -25,19 +28,47 @@ const Login = () => {
     }
         
     }
+
+    const handleSignUp = async () => {
+        try{
+            const res = await axios.post(BASE_URL+"/signup", {
+                firstName,
+                lastName,
+                email,
+                password
+            }, {withCredentials: true});
+            dispatch(addUser(res.data.data));
+            navigate("/profile");
+        }
+        catch(err){
+            console.error(err?.response?.data || "Something went wrong");
+        }
+    }
+
     return (
         <div>
             <div className='h-[80vh] flex items-center justify-center'>
         <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4">
-                <legend className="fieldset-legend">Login</legend>
+                <legend className="fieldset-legend">{isLoginForm? "Login": "SignUp"}</legend>
 
+                {!isLoginForm && <><label className="label">First Name</label>
+                <input type="text" value={firstName} className="input" placeholder="firstname" onChange={(e) => setFirstName(e.target.value)}/>
+
+                <label className="label">Last Name</label>
+                <input type="text" value={lastName} className="input" placeholder="lastname" onChange={(e) => setLastName(e.target.value)}/>
+                </>}
                 <label className="label">Email</label>
                 <input type="email" value={email} className="input" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
 
                 <label className="label">Password</label>
                 <input type="password" value={password} className="input" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+
                 <p className='text-red-500 text-center'>{error}</p>
-                <button className="btn btn-neutral mt-4" onClick={handleLogin}>Login</button>
+                <button className="btn btn-neutral mt-4" onClick={isLoginForm? handleLogin: handleSignUp}>{isLoginForm?"Login": "SignUp"}</button>
+
+                <p className='text-center mt-2 underline cursor-pointer text-xs text-gray-300'
+                onClick={() => setIsLoginForm(!isLoginForm)}>{isLoginForm?"New user? Sign Up here!": "Already have an account."}</p>
+
             </fieldset>
             </div>
             

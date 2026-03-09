@@ -18,7 +18,7 @@ const Base = () => {
     }
     catch (err) {
       if(err.response?.status === 401){
-        navigate("/login");
+        return navigate("/login");
       }
       console.error(err);
     }
