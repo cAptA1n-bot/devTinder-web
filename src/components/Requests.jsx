@@ -35,10 +35,10 @@ const Requests = () => {
 
     }, [])
 
-    if (!request || request.length === 0) return <div className="text-center font-bold">No request found</div>
+    if (!request || request.length === 0) return <div className="text-center font-bold my-20">No request found</div>
     return (
         <div>
-            <ul className="list bg-base-100 rounded-box shadow-md">
+            <ul className="list bg-base-100 rounded-box shadow-md my-16">
 
                 <li className="p-4 pb-2 text-xl tracking-wide">Pending Requests</li>
                 {request.map((request) => {

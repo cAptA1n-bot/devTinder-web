@@ -24,10 +24,10 @@ const Connections = () => {
 
     }, [])
 
-    if (!connections || connections.length === 0) return <div className="text-center font-bold">No connections found</div>
+    if (!connections || connections.length === 0) return <div className="text-center font-bold my-20">No connections found</div>
     return (
         <div>
-            <ul className="list bg-base-100 rounded-box shadow-md">
+            <ul className="list bg-base-100 rounded-box shadow-md my-16">
 
                         <li className="p-4 pb-2 text-xl tracking-wide">Your Connections</li>
             {connections.map((connection) => {

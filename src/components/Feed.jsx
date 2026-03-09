@@ -34,10 +34,10 @@ const Feed = () => {
 
   if(!feed) return;
 
-  if(feed.length <= 0) return <div className="text-center font-bold">No new user found</div>
+  if(feed.length <= 0) return <div className="text-center font-bold my-20">No new user found</div>
 
   return (
-    feed && <div className='flex justify-center my-10'>
+    feed && <div className='flex justify-center my-20'>
       <Card user={feed[0]}/>
     </div>
   )
