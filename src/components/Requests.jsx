@@ -26,7 +26,7 @@ const Requests = () => {
             dispatch(removeRequest(id));
         }
         catch(err){
-            console.error(err?.response?.data);
+            console.error(err?.response?.data || "Something went wrong");
         }
     }
 

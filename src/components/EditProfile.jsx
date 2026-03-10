@@ -43,7 +43,7 @@ const EditProfile = ({ user }) => {
 
     return (
         <>
-            <div className='flex justify-center gap-10'>
+            <div className='flex justify-center gap-10 my-16'>
                 <div className='flex justify-center'>
                     <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4">
                         <legend className="fieldset-legend">Edit Profile</legend>
@@ -92,7 +92,7 @@ const EditProfile = ({ user }) => {
                     <Card user={{ firstName, lastName, photoUrl, age, gender, about }} />
                 </div>
             </div>
-            {showToast && <div className="toast toast-top toast-center">
+            {showToast && <div className="toast toast-top toast-center z-101">
                 
                 <div className="alert alert-success">
                     <span>Profile saved successfully.</span>
