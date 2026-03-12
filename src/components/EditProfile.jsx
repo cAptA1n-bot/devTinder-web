@@ -43,7 +43,7 @@ const EditProfile = ({ user }) => {
 
     return (
         <>
-            <div className='flex justify-center gap-10 my-16'>
+            <div className='flex items-center gap-10 my-16 flex-col lg:flex-row lg:justify-center'>
                 <div className='flex justify-center'>
                     <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4">
                         <legend className="fieldset-legend">Edit Profile</legend>
