@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
@@ -6,11 +6,13 @@ import axios from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../utils/userSlice'
+import Loading from './Loading'
 
 const Base = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
+  const [loading, setLoading] = useState(true);
   const fetchUser = async () => {
     try {
       const res = await axios.get(BASE_URL + "/profile", { withCredentials: true })
@@ -22,9 +24,15 @@ const Base = () => {
       }
       console.error(err);
     }
+    finally{
+      setLoading(false);
+    }
   }
   useEffect(() => {
-    if(userData) return;
+    if(userData) {
+      setLoading(false)
+      return;
+    }
 
       fetchUser();
     
@@ -33,9 +41,14 @@ const Base = () => {
 
   return (
     <div>
-      <NavBar />
+      {!loading?
+      <div>
+        <NavBar />
       <Outlet />
       <Footer />
+      </div>: <Loading/>
+      }
+      
     </div>
   )
 }
