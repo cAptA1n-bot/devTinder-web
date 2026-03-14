@@ -1,13 +1,15 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
+import Loading from "./Loading";
 
 
 const Requests = () => {
     const request = useSelector((store) => store.request);
     const dispatch = useDispatch();
+    const [loading, isLoading] = useState(true);
     const getRequest = async () => {
         try{
 
@@ -16,6 +18,9 @@ const Requests = () => {
         }
         catch(err){
             console.error(err?.response?.data);
+        }
+        finally{
+            isLoading(false);
         }
     }
 
@@ -34,6 +39,8 @@ const Requests = () => {
         getRequest();
 
     }, [])
+
+    if(loading) return <Loading/>
 
     if (!request || request.length === 0) return <div className="text-center font-bold my-20">No request found</div>
     return (

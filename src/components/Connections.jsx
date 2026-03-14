@@ -1,28 +1,33 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import Loading from "./Loading";
 
 const Connections = () => {
     const connections = useSelector((store) => store.connection);
     const dispatch = useDispatch();
+    const [loading , isLoading] = useState(true);
     const getConnections = async () => {
         try{
 
             const res = await axios.get(BASE_URL + "/user/connections", { withCredentials: true });
-    
             dispatch(addConnections(res?.data))
         }
         catch(err){
             console.error(err?.response?.data);
         }
+        finally{
+            isLoading(false);
+        }
     }
 
     useEffect(() => {
         getConnections();
-
     }, [])
+
+    if(loading) return <Loading/>
 
     if (!connections || connections.length === 0) return <div className="text-center font-bold my-20">No connections found</div>
     return (
