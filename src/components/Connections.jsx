@@ -2,7 +2,7 @@ import axios from "axios"
 import { BASE_URL } from "../utils/constants"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addConnections } from "../utils/connectionSlice";
+import { addConnections, removeOneConnection } from "../utils/connectionSlice";
 import Loading from "./Loading";
 
 const Connections = () => {
@@ -20,6 +20,16 @@ const Connections = () => {
         }
         finally{
             isLoading(false);
+        }
+    }
+
+    const handleRemove = async (connectedUserId) => {
+        try{
+            await axios.delete(BASE_URL+"/user/connections/"+connectedUserId, {withCredentials: true});
+            dispatch(removeOneConnection(connectedUserId));
+        }
+        catch(err){
+            console.error(err?.response?.data);
         }
     }
 
@@ -50,6 +60,7 @@ const Connections = () => {
                             <p className="list-col-wrap text-xs">
                                 {about}
                             </p>
+                            <button className="btn btn-soft btn-error" onClick={() => {handleRemove(connection._id)}}>Remove</button>
                            
                         </li>
 
