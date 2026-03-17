@@ -37,7 +37,7 @@ const Feed = () => {
   if(feed.length <= 0) return <div className="text-center font-bold my-20">No new user found</div>
 
   return (
-    feed && <div className='flex justify-center items-center my-20 h-200 lg:h-auto lg:items-start'>
+    feed && <div className='flex justify-center items-center my-20 h-200 md:h-auto md:items-start'>
       <Card user={feed[0]}/>
     </div>
   )
