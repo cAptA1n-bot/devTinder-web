@@ -97,7 +97,7 @@ const EditProfile = ({ user }) => {
             {showToast && <div className="toast toast-top toast-center z-101">
                 
                 <div className="alert alert-success">
-                    <span>Profile saved successfully.</span>
+                    <span>Profile saved successfully!</span>
                 </div>
             </div>}
         </>
