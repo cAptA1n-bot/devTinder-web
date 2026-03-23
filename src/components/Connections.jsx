@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections, removeOneConnection } from "../utils/connectionSlice";
 import Loading from "./Loading";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
     const connections = useSelector((store) => store.connection);
@@ -60,6 +61,7 @@ const Connections = () => {
                             <p className="list-col-wrap text-xs">
                                 {about}
                             </p>
+                            <Link to={"/chat/"+_id} className="btn btn-soft btn-primary">Chat</Link>
                             <button className="btn btn-soft btn-error" onClick={() => {handleRemove(connection._id)}}>Remove</button>
                            
                         </li>

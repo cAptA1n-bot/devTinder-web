@@ -22,7 +22,6 @@ const Feed = () => {
   }
 
   useEffect(() => {
-    console.log(feed);
     if(!feed || feed.length === 0){
     userFeed();
   }
