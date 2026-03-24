@@ -1,6 +1,8 @@
+import { useParams } from "react-router-dom"
 
 const Chat = () => {
-    return (
+    const {targetUserId} = useParams()
+    return (    
         <div className="mt-20 lg:border lg:border-gray-300 lg:w-175 lg:mx-auto lg:rounded-lg h-[80vh]">
             <div className="p-4 border-b border-gray-300">Chat</div>
                 <div className="chat chat-start overflow-y-auto h-[70vh] p-4">
