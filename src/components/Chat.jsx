@@ -7,7 +7,7 @@ const Chat = () => {
             <div className="p-4 border-b border-gray-300">Chat</div>
                 <div className="chat chat-start overflow-y-auto h-[70vh] p-4">
                     <div className="chat-header">
-                        Obi-Wan Kenobi
+                        Prince Yadav
                         <time className="text-xs opacity-50">2 hours ago</time>
                     </div>
                     <div className="chat-bubble">You were the Chosen One!</div>
