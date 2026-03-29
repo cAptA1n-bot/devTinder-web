@@ -42,12 +42,12 @@ const Chat = () => {
 
 
     return (
-        <div className="mt-18 md:border md:border-gray-300 md:w-175 lg:mx-auto md:rounded-md h-[80vh]">
-            <div className="p-4 border-b border-gray-300 font-bold text-2xl h-[10%]">Chat</div>
-            <div className="h-[80vh] relative md:h-[90%]">
+        <div className="mt-14 md:mt-18 md:border md:border-gray-300 md:w-175 md:mx-auto md:rounded-md md:h-[80vh] h-[84vh] flex flex-col">
+            <div className="p-4 border-b border-gray-300 font-bold text-2xl">Chat</div>
+            <div className="flex-1 overflow-y-auto">
             {messages.map((msg, index) => {
                 return (
-                    <div key={index} className="chat chat-start overflow-y-auto p-4">
+                    <div key={index} className="chat chat-start p-4">
                         <div className="chat-header">
                             {msg.firstName + " " + msg.lastName}
                             <time className="text-xs opacity-50">2 hours ago</time>
@@ -57,17 +57,12 @@ const Chat = () => {
                     </div>
                 )
             })}
-
-            <div className="absolute bottom-0 flex gap-0.5 items-center left-0 right-0 bg-black p-2 rounded-b-md">
-                <input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} type="text" className="flex-1 border border-gray-300 p-4 h-12 rounded-lg text-[18px] lg:mb-1" placeholder="message..." />
-                <button onClick={sendMessage} className="btn btn-secondary w-23 h-12">Send</button>
-            </div>
             </div>
 
-
-            
-
-
+            <div className="flex gap-0.5 items-center bg-black p-2 md:p-4 rounded-b-md">
+                <input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} type="text" className="flex-1 border border-gray-300 p-3 md:p-4 h-10 md:h-12 rounded-lg text-base md:text-lg" placeholder="message..." />
+                <button onClick={sendMessage} className="btn btn-secondary h-10 md:h-12">Send</button>
+            </div>
         </div>
     )
 }
