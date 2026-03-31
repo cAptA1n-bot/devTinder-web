@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { createSocketConnection } from "../utils/socket"
 import { useSelector } from "react-redux"
+import { BASE_URL } from "../utils/constants"
+import axios from "axios"
 
 const Chat = () => {
     const { targetUserId } = useParams()
@@ -9,6 +11,33 @@ const Chat = () => {
     const userId = user?._id;
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const chatRef = useRef(null);
+
+    const fetchMessages = async () => {
+        try{
+            const res = await axios.get(BASE_URL+"/chats/"+targetUserId, {withCredentials: true});
+            const chatMessages = res?.data?.data?.messages.map((msg) => {
+                return {
+                    senderId: msg.senderId._id,
+                    firstName: msg.senderId.firstName,
+                    lastName: msg.senderId.lastName,
+                    text: msg.text
+                }
+            })
+            setMessages(chatMessages);
+        }
+        catch(err){
+            console.error(err?.response?.data);
+        }
+    }
+
+    useEffect(() => {
+        fetchMessages();
+    },[])
+
+    useEffect(() => {
+        chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    },[messages])
 
     useEffect(() => {
         if (!userId) {
@@ -17,9 +46,8 @@ const Chat = () => {
         const socket = createSocketConnection();
         socket.emit("joinChat", { userId, targetUserId })
 
-        socket.on("messageReceived", ({ firstName, lastName, text }) => {
-            console.log(firstName, ": ", text);
-            setMessages((message) => [...message, { firstName, lastName, text }])
+        socket.on("messageReceived", ({ firstName, lastName, text, senderId }) => {
+            setMessages((messages) => [...messages, { firstName, lastName, text, senderId }])
         })
 
         return () => {
@@ -28,6 +56,8 @@ const Chat = () => {
     }, [userId, targetUserId])
 
     const sendMessage = () => {
+       
+
         const socket = createSocketConnection();
         socket.emit("sendMessage", {
             firstName: user.firstName,
@@ -44,10 +74,10 @@ const Chat = () => {
     return (
         <div className="mt-14 md:mt-18 md:border md:border-gray-300 md:w-175 md:mx-auto md:rounded-md md:h-[80vh] h-[84vh] flex flex-col">
             <div className="p-4 border-b border-gray-300 font-bold text-2xl">Chat</div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto" ref={chatRef}>
             {messages.map((msg, index) => {
                 return (
-                    <div key={index} className="chat chat-start p-4">
+                    <div key={index} className={`chat ${userId === msg.senderId? 'chat-end' : 'chat-start'} p-4`}>
                         <div className="chat-header">
                             {msg.firstName + " " + msg.lastName}
                             <time className="text-xs opacity-50">2 hours ago</time>
