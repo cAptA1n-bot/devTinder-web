@@ -45,7 +45,7 @@ const Base = () => {
       <div>
         <NavBar />
       <Outlet />
-      <Footer />
+      
       </div>: <Loading/>
       }
       

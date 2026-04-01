@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import Footer from "./Footer";
 
 const ChangePass = () => {
     const[oldPassword, setOldPassword] = useState("");
@@ -41,6 +42,7 @@ const ChangePass = () => {
 
             </fieldset>
             </div>
+            <Footer />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addFeed } from '../utils/feedSlice'
 import Card from './Card'
 import { useEffect } from 'react'
+import Footer from './Footer'
 
 
 const Feed = () => {
@@ -36,8 +37,12 @@ const Feed = () => {
   if(feed.length <= 0) return <div className="text-center font-bold my-20">No new user found</div>
 
   return (
+    <div>
     feed && <div className='flex justify-center items-center my-20 h-200 md:h-auto md:items-start'>
       <Card user={feed[0]}/>
+      
+    </div>
+    <Footer />
     </div>
   )
 }

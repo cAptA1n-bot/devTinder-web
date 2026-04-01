@@ -89,7 +89,7 @@ const Chat = () => {
             })}
             </div>
 
-            <div className="flex gap-0.5 items-center bg-black p-2 md:p-4 rounded-b-md">
+            <div className="flex gap-0.5 items-center bg-black p-2 md:p-4 rounded-b-md fixed bottom-0 left-0 right-0 sm:relative sm:bottom-auto sm:left-auto sm:right-auto">
                 <input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} type="text" className="flex-1 border border-gray-300 p-3 md:p-4 h-10 md:h-12 rounded-lg text-base md:text-lg" placeholder="message..." />
                 <button onClick={sendMessage} className="btn btn-secondary h-10 md:h-12">Send</button>
             </div>

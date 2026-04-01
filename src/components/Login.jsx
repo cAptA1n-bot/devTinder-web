@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
+import Footer from './Footer';
 
 const Login = () => {
     const [firstName, setFirstName] = useState("");
@@ -71,6 +72,7 @@ const Login = () => {
 
             </fieldset>
             </div>
+            <Footer />
             
         </div>
     )
