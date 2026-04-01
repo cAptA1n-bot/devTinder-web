@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
@@ -15,6 +15,14 @@ const Login = () => {
     const [isLoginForm, setIsLoginForm] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector(state => state.user);
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+    
     const handleLogin = async () => {
     try{
         const res = await axios.post(BASE_URL+"/login",{

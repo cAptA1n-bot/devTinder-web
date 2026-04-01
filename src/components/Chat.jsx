@@ -57,7 +57,6 @@ const Chat = () => {
 
     const sendMessage = () => {
        
-
         const socket = createSocketConnection();
         socket.emit("sendMessage", {
             firstName: user.firstName,
@@ -66,6 +65,7 @@ const Chat = () => {
             targetUserId,
             text: newMessage
         })
+        setNewMessage("");
     }
 
 
@@ -80,10 +80,10 @@ const Chat = () => {
                     <div key={index} className={`chat ${userId === msg.senderId? 'chat-end' : 'chat-start'} p-4`}>
                         <div className="chat-header">
                             {msg.firstName + " " + msg.lastName}
-                            <time className="text-xs opacity-50">2 hours ago</time>
+                            <time className="text-xs opacity-50"></time>
                         </div>
                         <div className="chat-bubble">{msg.text}</div>
-                        <div className="chat-footer opacity-50">Seen</div>
+                        <div className="chat-footer opacity-50"></div>
                     </div>
                 )
             })}
