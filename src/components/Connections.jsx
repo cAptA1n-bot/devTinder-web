@@ -50,7 +50,6 @@ const Connections = () => {
                 const {firstName, lastName, age, gender, about, photoUrl, _id} = connection;
                 return (
                     
-
                         <li className="list-row" key={_id}>
                             <div><img className="size-10 rounded-box" src={photoUrl} /></div>
                             <div>

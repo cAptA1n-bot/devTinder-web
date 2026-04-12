@@ -50,7 +50,7 @@ const Login = () => {
             navigate("/profile");
         }
         catch(err){
-            console.error(err?.response?.data || "Something went wrong");
+            setError(err?.response?.data || "Something went wrong");
         }
     }
 
